@@ -1,10 +1,8 @@
-use actix_web::{App, HttpResponse, HttpServer, Responder, web};
-
-async fn health_check() -> impl Responder {
-    HttpResponse::Ok()
-}
+use zero2prod::run;
+use std::net::TcpListener;
 
 #[tokio::main]
 async fn main() -> Result<(), std::io::Error> {
-    run().await
+    let address = TcpListener::bind("127.0.0.1:8000")?;
+    run(address)?.await
 }
