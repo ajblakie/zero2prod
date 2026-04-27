@@ -1,6 +1,5 @@
 //! tests/health_check.rs
 
-use actix_web::dev::Server;
 use std::net::TcpListener;
 
 // You can inspect what code gets generated using
