@@ -28,7 +28,7 @@ then
   docker run \
     --env POSTGRES_USER=${SUPERUSER} \
     --env POSTGRES_PASSWORD=${SUPERUSER_PWD} \
-    --health-cmd="pg_isready -U ${SUPERUSER} || exit 1" \ # <- Check if Postgres is ready
+    --health-cmd="pg_isready -U ${SUPERUSER} || exit 1" \ 
     --health-interval=1s \
     --health-timeout=5s \
     --health-retries=5 \
