@@ -19,7 +19,7 @@ APP_USER="${APP_USER:=app}"
 APP_USER_PWD="${APP_USER_PWD:=secret}"
 APP_DB_NAME="${APP_DB_NAME:=newsletter}"
 
-# Allow to skip Docker if a dockerized Postgres database is already running
+#Allow to skip Docker if a dockerized Postgres database is already running
 if [[ -z "${SKIP_DOCKER}" ]]
 then
 
@@ -28,7 +28,7 @@ then
   docker run \
     --env POSTGRES_USER=${SUPERUSER} \
     --env POSTGRES_PASSWORD=${SUPERUSER_PWD} \
-    --health-cmd="pg_isready -U ${SUPERUSER} || exit 1" \ 
+    --health-cmd="pg_isready -U ${SUPERUSER} || exit 1" \
     --health-interval=1s \
     --health-timeout=5s \
     --health-retries=5 \
