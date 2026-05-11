@@ -4,15 +4,14 @@ use actix_web::{HttpResponse, web};
 use sqlx::PgPool;
 
 #[derive(serde::Deserialize)]
-struct FormData {
+pub struct FormData {
     email: String,
     name: String
 }
 
 pub async fn subscribe(
     form: web::Form<FormData>,
-    pool: web::Data<PgPool>,
-) -> HttpResponse {
+    pool: web::Data<PgPool>) -> HttpResponse {
     match sqlx::query!(
         r#"
     INSERT INTO subscriptions (id, email, name, subscribed_at)
