@@ -1,12 +1,15 @@
-use zero2prod::{configuration::get_configuration, startup::run};
 use std::net::TcpListener;
+use zero2prod::configuration::get_configuration;
+use zero2prod::startup::run;
+use sqlx::{Connection, PgConnection};
 
 #[tokio::main]
-async fn main() -> Result<(), std::io::Error> {
-    // PAnic if we can't read configuration
+async fn main() -> std::io::Result<(), std::io::Error> {
     let configuration = get_configuration().expect("Failed to read configuration");
-    // We have removed hard-coded `8000` - it's now coming from our settings!
+    let connection = PgConnection::connect(&configuration.database.connection_string())
+        .await
+        .expect("Failed to connect to Postgres.");
     let address = format!("127.0.0.1:{}", configuration.application_port);
     let listener = TcpListener::bind(address)?;
-    run(listener)?.await
+    run(listener, connection)?.await
 }
